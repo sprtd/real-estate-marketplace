@@ -1,8 +1,8 @@
-// SPDX-License-Identifier: GPL-3.0
+// SPDX-License-Identifier: MIT
 
 pragma solidity >=0.5.0 <0.9.0;
 
-contract ERC165 {
+contract MyERC165 {
     bytes4 private constant _INTERFACE_ID_ERC165 = 0x01ffc9a7;
 
     /*

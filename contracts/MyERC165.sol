@@ -47,7 +47,7 @@ contract MyERC165 {
     /**
      * @dev implement supportsInterface(bytes4) using a lookup table
      */
-    function supportsInterface(bytes4 _interfaceId) external view returns(bool) {
+    function checkSupportInterface(bytes4 _interfaceId) external view virtual returns(bool) {
         return _supportedInterfaces[_interfaceId];
     }
 

@@ -5,6 +5,7 @@ pragma solidity >=0.5.0 <0.9.0;
 import './MyERC721.sol';
 import './MyERC165.sol';
 import '@openzeppelin/contracts/utils/math/SafeMath.sol';
+import 'hardhat/console.sol';
 
 
 
@@ -24,6 +25,7 @@ contract MyERC721Enumerable is  MyERC165,  MyERC721 {
 	// array of token IDs
 	uint256[] private _allTokens;
 	
+	// mapping token id to position in allTokens array
 	mapping(uint256 => uint256) private _allTokensIndex;
     
 	bytes4 private constant _INTERFACE_ID_ERC721_ENUMERABLE = 0x780e9d63;
@@ -40,20 +42,18 @@ contract MyERC721Enumerable is  MyERC165,  MyERC721 {
 	constructor (string memory _tokenName, string memory _symbol) MyERC721(_tokenName, _symbol) {
 		// register the supported interface to conform to ERC721Enumerable via ERC165
 		_registerInterface(_INTERFACE_ID_ERC721_ENUMERABLE);
-		//   _registerInterface(_ERC721_RECEIVED);
 
 	}
 	
 	/**
 		* @dev Internal function to mint a new token
 		* Reverts if the given token ID already exists
-		* @param _to address the beneficiary that will own the minted token
-		* @param _tokenId uint256 ID of the token to be minted
 		*/
-	function mintToken(address _to, uint256 _tokenId) internal  {
-		mintToken(_to);
-		_addTokenOwnerEnumeration(_to, _tokenId);
-		_addTokenToAllEnumeration(_tokenId);
+	function mintToken() public  {
+		uint256 tokenId = getTotalSupply();
+		mintToken(msg.sender);
+		_addTokenOwnerEnumeration(msg.sender, tokenId);
+		_addTokenToAllEnumeration(tokenId);
 	}
 
 	/**
@@ -76,13 +76,12 @@ contract MyERC721Enumerable is  MyERC165,  MyERC721 {
 		* @dev Private function to add a token to this extension's ownership-tracking data structures.
 		* @param _to address representing the new owner of the given token ID
 		* @param _tokenId uint256 ID of the token to be added to the tokens list of the given address
-		*/
+	*/
 		
 	function _addTokenOwnerEnumeration(address _to, uint256 _tokenId) private {
 		_ownedTokensIndex[_tokenId] = _ownedTokens[_to].length;
 		_ownedTokens[_to].push(_tokenId);
 	
-
 	}
 	
      
@@ -90,12 +89,10 @@ contract MyERC721Enumerable is  MyERC165,  MyERC721 {
 	* @dev Private function to add a token to this extension's token tracking data structures.
 	* @param _tokenId uint256 ID of the token to be added to the tokens list
 	*/
-	
-	
 	function _addTokenToAllEnumeration(uint256 _tokenId) private {
-		_allTokensIndex[_tokenId] = _allTokens[_tokenId];
+		_allTokensIndex[_tokenId] = _allTokens.length;
+
 		_allTokens.push(_tokenId);
-			
 	}
      
 	/**
@@ -116,10 +113,10 @@ contract MyERC721Enumerable is  MyERC165,  MyERC721 {
 
 		// When the token to delete is the last token, the swap operation is unnecessary
 		if (tokenIndex != lastTokenIndex) {
-				uint256 lastTokenId = _ownedTokens[_from][lastTokenIndex];
+			uint256 lastTokenId = _ownedTokens[_from][lastTokenIndex];
 
-				_ownedTokens[_from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
-				_ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
+			_ownedTokens[_from][tokenIndex] = lastTokenId; // Move the last token to the slot of the to-delete token
+			_ownedTokensIndex[lastTokenId] = tokenIndex; // Update the moved token's index
 		}
 
 		// This also deletes the contents at the last position of the array
@@ -129,8 +126,10 @@ contract MyERC721Enumerable is  MyERC165,  MyERC721 {
 	
     
 	/********************************************************************************************/
-	/*                                      UTILITY FUNCITONS                                    */
+	/*                                      UTILITY FUNCITONS                                  */
 	/******************************************************************************************/
+
+
 	/**
 		* @dev Gets the list of token IDs of the requested owner
 		* @param _owner address owning the tokens
@@ -143,24 +142,29 @@ contract MyERC721Enumerable is  MyERC165,  MyERC721 {
 			
 	}
      
-   
-        
 	function isApprovedForAllCheck(address _owner, address _operator) public view  returns (bool) {
 		// return _operatorApprovals[owner][operator];
 		return isApprovedForAll(_owner, _operator);
 	}
+
     
-    	/**
-     * @dev Gets the token ID at a given index of the tokens list of the requested owner
-     * @param _owner address owning the tokens list to be accessed
-     * @param _index uint256 representing the index to be accessed of the requested tokens list
-     * @return uint256 token ID at the given index of the tokens list owned by the requested address
-    */
-    
+	/**
+		* @dev Gets the token ID at a given index of the tokens list of the requested owner
+		* @param _owner address owning the tokens list to be accessed
+		* @param _index uint256 representing the index to be accessed of the requested tokens list
+		* @return uint256 token ID at the given index of the tokens list owned by the requested address
+	*/
+
 	function tokenOfOwnerByIndex(address _owner, uint256 _index) public view returns(uint256) {
 		require(_index < balanceOf(_owner), 'invalid index');
 		return _ownedTokens[_owner][_index];
 		
 	}
+
+	function getTotalTokenSupply() external view returns(uint256 totalSupply) {
+		totalSupply = getTotalSupply();
+		return totalSupply;
+	}
+
     
 }

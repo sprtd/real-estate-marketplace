@@ -5,11 +5,11 @@ pragma solidity >=0.5.0 <0.9.0;
 import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 import '@openzeppelin/contracts/utils/math/SafeMath.sol';
 import '@openzeppelin/contracts/utils/Counters.sol';
-// import "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol";
 import './Pausable.sol';
+import 'hardhat/console.sol';
 
 
-contract MyERC721 is ERC721, Pausable  {  
+contract MyERC721 is  Pausable, ERC721 {  
     
 	/********************************************************************************************/
 	/*                                     STATE VARIABLES                                          */
@@ -37,9 +37,9 @@ contract MyERC721 is ERC721, Pausable  {
 	event LogTransfer(address indexed from, address indexed to, uint256 tokenId);
 // 	event LogTokenMinted(address indexed minter, uint256 tokenId);
 
-    constructor(string memory _tokenName, string memory _symbol) ERC721(_tokenName, _symbol) {
+	constructor(string memory _tokenName, string memory _symbol) ERC721(_tokenName, _symbol) {
 
-    }
+	}
 
 	/**
 		* @dev approve another address to transfer the given tokenId
@@ -64,28 +64,31 @@ contract MyERC721 is ERC721, Pausable  {
 	*/
 	
 	function setApprovalForAll(address _to, bool _approveStatus) public  override {
-	    setApprovalForAll(_to, _approveStatus);
+	  setApprovalForAll(_to, _approveStatus);
 
 	    
 	}
 	
 	/**
-     * @dev Tells whether an operator is approved by a given owner
+    * @dev Tells whether an operator is approved by a given owner
      * @param _owner owner address which you want to query the approval of
      * @param _operator operator address which you want to query the approval of
      * @return bool whether the given operator is approved by the given owner
-     */
+  */
 	
 	function isApprovedForAll(address _owner, address _operator) public view override returns(bool)  {
-	    return _operatorApprovals[_owner][_operator];
+	  return _operatorApprovals[_owner][_operator];
 	}
 
 
 	function mintToken(address _to) internal {
 		uint256 id = _tokenIds.current();
-		require(_tokenOwner[id] != address(0), 'cannot be zero address');
+		require(_to != address(0), 'cannot be zero address');
+		console.log('base contract caller: %s', _to);
 		_tokenIds.increment();
 		_safeMint(_to, id);
+		console.log('base co: %s', _to);
+		console.log('base contract caller: %s', _to);
 		emit LogTransfer(address(0), _to, id);
 	}
 	
@@ -104,6 +107,10 @@ contract MyERC721 is ERC721, Pausable  {
 		if(_tokenApprovals[_tokenId] != address(0)) {
 			_tokenApprovals[_tokenId] = address(0);
 		}
+	}
+
+	function getTotalSupply() public view returns(uint256) {
+		return _tokenIds.current();
 	}
 
 

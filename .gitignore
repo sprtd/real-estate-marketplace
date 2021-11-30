@@ -1,4 +1,6 @@
 config/
 node_modules/
 build/
+.vscode/ 
+
 

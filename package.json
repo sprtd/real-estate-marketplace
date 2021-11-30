@@ -1,7 +1,8 @@
 {
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.3",
-    "dotenv": "^10.0.0"
+    "dotenv": "^10.0.0",
+    "hardhat": "^2.7.0"
   },
   "name": "real-estate-marketplace",
   "version": "1.0.0",
@@ -9,7 +10,6 @@
   "directories": {
     "test": "test"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

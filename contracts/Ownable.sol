@@ -10,7 +10,7 @@ contract Ownable {
 
 
   function onlyOwner() public view {
-    require(msg.sender == _owner, 'ONL OWN');
+    require(msg.sender == _owner, 'caller not owner');
   }
 
   modifier checkOnlyOwner() {

@@ -6,7 +6,6 @@ import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
 import '@openzeppelin/contracts/utils/math/SafeMath.sol';
 import '@openzeppelin/contracts/utils/Counters.sol';
 import './Pausable.sol';
-import 'hardhat/console.sol';
 
 
 contract MyERC721 is  Pausable, ERC721 {  
@@ -84,11 +83,8 @@ contract MyERC721 is  Pausable, ERC721 {
 	function mintToken(address _to) internal {
 		uint256 id = _tokenIds.current();
 		require(_to != address(0), 'cannot be zero address');
-		console.log('base contract caller: %s', _to);
 		_tokenIds.increment();
 		_safeMint(_to, id);
-		console.log('base co: %s', _to);
-		console.log('base contract caller: %s', _to);
 		emit LogTransfer(address(0), _to, id);
 	}
 	
@@ -102,7 +98,8 @@ contract MyERC721 is  Pausable, ERC721 {
 		transferFrom(_from, _to, _tokenId);
 		emit Transfer(_from, _to, _tokenId);
 	}
-
+	// @dev private function clear approval 
+	// @param _tokenId whose approval is to be removed
 	function _clearApproval(uint256 _tokenId) private {
 		if(_tokenApprovals[_tokenId] != address(0)) {
 			_tokenApprovals[_tokenId] = address(0);

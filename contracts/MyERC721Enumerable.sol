@@ -5,7 +5,6 @@ pragma solidity >=0.5.0 <0.9.0;
 import './MyERC721.sol';
 import './MyERC165.sol';
 import '@openzeppelin/contracts/utils/math/SafeMath.sol';
-import 'hardhat/console.sol';
 
 
 

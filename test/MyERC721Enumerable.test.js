@@ -1,4 +1,5 @@
 const MyERC721Enumerable = artifacts.require('MyERC721Enumerable');
+const RealEstateToken = artifacts.require('RealEstateToken');
 
 
 let deployer, addr1, addr2, addr3, myERC721Enumerable
@@ -43,6 +44,7 @@ contract('ERC721Enumerable', async payloadAccounts =>  {
 			await myERC721Enumerable.safeTransferFrom(addr3, deployer, 3, {from: addr3})
 			const owner = await myERC721Enumerable.ownerOf.call(3)
 			console.log({owner})
+			assert.equal(owner, deployer)
 		})
 	})
 

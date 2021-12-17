@@ -1,5 +1,6 @@
 
-const RealEstateToken = artifacts.require('RealEstateToken.sol')
+const RealEstateToken = artifacts.require('RealEstateToken')
+const SquareVerifier = artifacts.require('Verifier')
 
 
 module.exports = (async (deployer, network, accounts) => {
@@ -10,13 +11,20 @@ module.exports = (async (deployer, network, accounts) => {
         console.log('contract here', realEstateToken.address)
         console.log('accounts', accounts)
 
-        
-	    await realEstateToken.mintToken({from: accounts[0]})
-        const resultTokenURI = await realEstateToken.getTokenURI(0)
-        console.log('token uri', resultTokenURI)
+        await deployer.deploy(SquareVerifier)
+        const squareVerifier = await SquareVerifier.deployed()
+        console.log('square verifier address', squareVerifier.address)
+        // console.log('accounts', accounts)
 
-        const newOwner = await realEstateToken.ownerOf(0)
-        console.log({newOwner})
+
+
+        
+	    // await realEstateToken.mintToken({from: accounts[0]})
+        // const resultTokenURI = await realEstateToken.getTokenURI(0)
+        // console.log('token uri', resultTokenURI)
+
+        // const newOwner = await realEstateToken.ownerOf(0)
+        // console.log({newOwner})
     } catch(err) {
         console.log('migration error', err)
     }

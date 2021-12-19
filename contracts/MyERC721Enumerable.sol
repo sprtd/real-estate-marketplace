@@ -7,8 +7,6 @@ import './MyERC165.sol';
 import '@openzeppelin/contracts/utils/math/SafeMath.sol';
 
 
-
- 
 contract MyERC721Enumerable is  MyERC165,  MyERC721 {
 	using SafeMath for uint256;
 	/********************************************************************************************/

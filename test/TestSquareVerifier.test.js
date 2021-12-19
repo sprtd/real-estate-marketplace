@@ -1,6 +1,9 @@
 const SquareVerifier = artifacts.require('Verifier')
+const truffleAssert = require('truffle-assertions')
 const squareProof = require('../zokrates/code/square/proof.json')
-const { proof, inputs } = squareProof
+const { proof: {a, b, c }, inputs } = squareProof
+
+
 
 let squareVerifier
 
@@ -11,16 +14,21 @@ contract('Square Verifier', async payloadAccounts =>  {
   
 	contract('Verification', async () => {
 		it('Passes verification with correct proof', async() => {
-      const result = await squareVerifier.verifyTx(proof, inputs)
-      console.log('this is the result', result)
-      assert.equal(result, true, 'verification failed')
+      const verificationResult = await squareVerifier.verifyTx(a, b, c, inputs)
+			truffleAssert.eventEmitted(verificationResult, 'Verified', (ev) => {
+        console.log({ev})
+				return ev.s === 'Transaction successfully verified.'
+      })
 		})
+		
 
 		it('Fails verification with incorrect proof', async() => {
       const vagueInputs = ["0x1", "0xe"]
-      const result = await squareVerifier.verifyTx(proof, vagueInputs)
-      console.log('this is the result', result)
-      assert.equal(result, false, 'verification passed')
+      const verificationResult = await squareVerifier.verifyTx(a, b, c, vagueInputs)
+			truffleAssert.eventEmitted(verificationResult, 'UnVerified', (ev) => {
+        console.log({ev})
+				return ev.s === 'Transaction not verified.'
+      })
 		})
 	})
 

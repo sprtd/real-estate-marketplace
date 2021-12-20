@@ -24,7 +24,7 @@ Purchase Transaction: [0x66494174d5bc260e57fa3def06d57fb9a96d9b3b694d29f1ff5f2bb
 ## Contracts
 
 [Verifier Contract Address](https://rinkeby.etherscan.io/tx/0x459e4b05e815cdfa7b46eba24d0528e640a0003ba3d7484b864a883aeb91cb08)<br>
-[IRealEstateToken Contract Address](https://rinkeby.etherscan.io/token/0x84739ED0ac39bF8b865CCef724Ef11c08ae6Dff7)
+[RealEstateToken Contract Address](https://rinkeby.etherscan.io/token/0x84739ED0ac39bF8b865CCef724Ef11c08ae6Dff7)
 
 
 ## Testing
@@ -41,9 +41,9 @@ Purchase Transaction: [0x66494174d5bc260e57fa3def06d57fb9a96d9b3b694d29f1ff5f2bb
 
 
 
-## ABI
+## ABIs
 
-Contract ABI can be found in `/build/contracts`
+Path to contract ABIs - `/build/contracts`
 
 
 ## Environment

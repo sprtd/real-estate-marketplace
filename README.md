@@ -42,7 +42,7 @@ Purchase Transaction: [0x66494174d5bc260e57fa3def06d57fb9a96d9b3b694d29f1ff5f2bb
 
 ## ABI
 
-Contract artifacts including ABI can be found in `/build/contracts`
+Contract ABI can be found in `/build/contracts`
 
 
 ## Environment

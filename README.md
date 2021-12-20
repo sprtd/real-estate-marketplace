@@ -31,10 +31,10 @@ Purchase Transaction: [0x66494174d5bc260e57fa3def06d57fb9a96d9b3b694d29f1ff5f2bb
 
 ## Testing
 
-######  To test SquareVerifier.test.js:
+######  To test Zokrates-generated SquareVerifier contract:
 1. Run `truffle test './test/SquareVerifier.test.js' --network dev`
 
-######  To test SolnSquareVerifier.test.js:
+######  To test SolnSquareVerifier contract:
 1. Run `truffle test './test/SolnSquareVerifier.test.js' --network dev`
 
 

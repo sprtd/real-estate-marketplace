@@ -62,11 +62,14 @@ contract MyERC721 is  Pausable, ERC721 {
 		* @param _to operator address to set the approval
 	*/
 	
-	function setApprovalForAll(address _to, bool _approveStatus) public  override {
-	  setApprovalForAll(_to, _approveStatus);
 
-	    
+
+	function setApprovalForAll(address _to, bool _approved) public override {
+		{ require(_to != msg.sender);
+		_operatorApprovals[msg.sender][_to] = _approved;
+		emit ApprovalForAll(msg.sender, _to, _approved);}
 	}
+
 	
 	/**
     * @dev Tells whether an operator is approved by a given owner

@@ -1,10 +1,8 @@
 require('dotenv').config({path: './config/config.env'})
 
-const { TEST } = process.env
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
-//
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const { P_KEY, RINKEBY_ENDPOINT } = process.env
+const HDWalletProvider = require('@truffle/hdwallet-provider');
+
 
 module.exports = {
   networks: {
@@ -12,8 +10,18 @@ module.exports = {
      host: "127.0.0.1",     // Localhost (default: none)
      port: 7545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
+    },
+    
+    rinkeby: {
+      provider: () => new HDWalletProvider({
+        mnemonic: P_KEY,
+        providerOrUrl: RINKEBY_ENDPOINT
+      }),
+      network_id: 4,   
+      networkCheckTimeout: 999999,
     }
   },
+
   mocha: {
     timeout: 100000
   },

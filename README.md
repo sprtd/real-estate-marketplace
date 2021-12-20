@@ -15,10 +15,12 @@ Token Address: [0x84739ed0ac39bf8b865ccef724ef11c08ae6dff7](https://rinkeby.ethe
 
 
 
-## OpenSea Listing
+## OpenSea 
 
-[Token Owner](https://rinkeby.opensea.io/accounts/)<br>
+[Token Owner](https://rinkeby.opensea.io/accounts/0xd6bedbc5eb7ee960a35d07c4b0e08dc1482ace6c)<br>
 Purchase Transaction: [0x66494174d5bc260e57fa3def06d57fb9a96d9b3b694d29f1ff5f2bb4c6184fec](https://rinkeby.etherscan.io/tx/0x66494174d5bc260e57fa3def06d57fb9a96d9b3b694d29f1ff5f2bb4c6184fec)
+
+[OpenSea Store Front Link](https://testnets.opensea.io/collection/realestatetoken-8lu6ddtaho)
 
 
 ## Contracts
@@ -27,7 +29,20 @@ Purchase Transaction: [0x66494174d5bc260e57fa3def06d57fb9a96d9b3b694d29f1ff5f2bb
 [IRealEstateToken Contract Address](https://rinkeby.etherscan.io/token/0x84739ED0ac39bF8b865CCef724Ef11c08ae6Dff7)
 
 
+## Testing
 
+######  To test SquareVerifier.test.js:
+1. Run `truffle test './test/SolnSquareVerifier.test.js' --network dev`
+
+######  To test SolnSquareVerifier.test.js:
+1. Run `truffle test './test/SolnSquareVerifier.test.js' --network dev`
+
+
+
+
+## ABI
+
+Contract artifacts including ABI can be found in `/build/contracts`
 
 
 ## Environment

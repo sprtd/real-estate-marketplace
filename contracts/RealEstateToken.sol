@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 
 pragma solidity >=0.5.0 <0.9.0;
-
+  
 import './MyERC721Metadata.sol';
 
 // Create CustomERC721Token contract that inherits from the ERC721Metadata contract. You can name this contract as you please.
@@ -21,11 +21,11 @@ MyERC721Metadata('RealEstateToken', 'RET', 'https://s3-us-west-2.amazonaws.com/u
     _;
   }
    
-  function mint() public isOwner returns(bool) {
+  function mint() internal isOwner returns(bool) {
     uint256 tokenId = getTotalSupply();
     mintToken();
     emit LogTokenMinted(msg.sender, tokenId);
-    super._setTokenURI(tokenId);
+    _setTokenURI(tokenId);
     return true;
   }
 

@@ -81,8 +81,8 @@ contract MyERC721 is  Pausable, ERC721 {
 
 
 	function mintToken(address _to) internal {
-		uint256 id = _tokenIds.current();
 		require(_to != address(0), 'cannot be zero address');
+		uint256 id = _tokenIds.current();
 		_tokenIds.increment();
 		_safeMint(_to, id);
 		emit LogTransfer(address(0), _to, id);

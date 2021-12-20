@@ -1,9 +1,7 @@
 
-# Real Estate Marketplace
+# Description
 
-> In this project, tokens which represent title to properties are minted. Before a token is minted, property ownership is verfied. Using zk-SNARKs, a verification system was created to prove property title ownership without revealing that specific information on the property. 
-> 
-> Following token verification, it was listed on OpenSea marketplace.
+> In this project, ERC-721 tokenized representation of  title properties were minted. Priority to minting, property ownership is verfied using zk-SNARKs, a verification system  created to prove property title ownership without revealing that specific information on the property. Following token verification, it was listed on OpenSea marketplace.
 
 
 ## Token
